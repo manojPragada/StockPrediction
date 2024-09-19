@@ -1,13 +1,12 @@
+import matplotlib.pyplot as plt
 import streamlit as st
 import pandas as pd
 import yfinance as yf
 import numpy as np
-import matplotlib.pyplot as plt
 import seaborn as sns
 import plotly.graph_objects as go
 import plotly.express as px
 import datetime
-from datetime import timedelta, date
 from statsmodels.tsa.seasonal import seasonal_decompose
 import statsmodels.api as sm
 from statsmodels.tsa.stattools import adfuller
@@ -23,7 +22,7 @@ st.image("https://media.istockphoto.com/id/1487894858/photo/candlestick-chart-an
 #take input from user about the start and end date and create side bar
 
 st.sidebar.title("select the parameters")
-start_date = st.sidebar.date_input("Start Date", datetime.date(2020, 1, 1))
+start_date = st.sidebar.date_input("Start Date", datetime.date(2024, 1, 1))
 end_date = st.sidebar.date_input("End Date", datetime.date.today())
 
 #add ticker symbol list
