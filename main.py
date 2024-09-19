@@ -11,7 +11,6 @@ from datetime import timedelta, date
 from statsmodels.tsa.seasonal import seasonal_decompose
 import statsmodels.api as sm
 from statsmodels.tsa.stattools import adfuller
-from numba import jit, cuda
 
 #title
 app_name = "Stock Price Prediction App"
