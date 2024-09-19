@@ -8,3 +8,4 @@ statsmodels==0.14.3
 streamlit==1.38.0
 watchdog==4.0.2
 yfinance==0.2.43
+joblib==1.4.2

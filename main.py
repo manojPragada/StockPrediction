@@ -93,7 +93,7 @@ seasonal_order = st.number_input("Select the value of seasonal p", 0, 24, 12)
 
 
 # Create a unique filename for the model based on parameters
-model_filename = f"sarimax_model_{ticker}_{column}_{p}_{d}_{q}_{seasonal_order}.joblib"
+model_filename = f"training_models/sarimax_model_{ticker}_{column}_{p}_{d}_{q}_{seasonal_order}.joblib"
 st.write("## *******************************************")
 # Check if the model file exists
 if os.path.exists(model_filename):
@@ -105,7 +105,7 @@ else:
     # Create and fit a new model
     model = sm.tsa.statespace.SARIMAX(data[column], order=(p, d, q), seasonal_order=(seasonal_order, 0, 0, 12)).fit()
     # Save the model
-    joblib.dump(model, model_filename)
+    joblib.dump(model, model_filename, compress=8)
     st.write("## Created and saved new model.")
 st.write("## *******************************************")
 #print model summary
