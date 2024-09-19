@@ -10,6 +10,8 @@ import datetime
 from statsmodels.tsa.seasonal import seasonal_decompose
 import statsmodels.api as sm
 from statsmodels.tsa.stattools import adfuller
+import joblib
+import os
 
 #title
 app_name = "Stock Price Prediction App"
@@ -89,8 +91,23 @@ q = st.slider("Select the value of q (MA order)", 0, 5, 1)
 
 seasonal_order = st.number_input("Select the value of seasonal p", 0, 24, 12)
 
-model = sm.tsa.statespace.SARIMAX(data[column], order=(p, d, q), seasonal_order=(seasonal_order, 0, 0, 12)).fit()
 
+# Create a unique filename for the model based on parameters
+model_filename = f"sarimax_model_{ticker}_{column}_{p}_{d}_{q}_{seasonal_order}.joblib"
+st.write("## *******************************************")
+# Check if the model file exists
+if os.path.exists(model_filename):
+    # Load the existing model
+    model = joblib.load(model_filename)
+    st.write("## Loaded existing model.")
+    st.write("** Note: ** Any change in values will create a new model.")
+else:
+    # Create and fit a new model
+    model = sm.tsa.statespace.SARIMAX(data[column], order=(p, d, q), seasonal_order=(seasonal_order, 0, 0, 12)).fit()
+    # Save the model
+    joblib.dump(model, model_filename)
+    st.write("## Created and saved new model.")
+st.write("## *******************************************")
 #print model summary
 st.header("Model Summary")
 st.write(model.summary())
